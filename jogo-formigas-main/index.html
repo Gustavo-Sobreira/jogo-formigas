@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Formiga</title>
+    <link rel="stylesheet" href="style/reset.css">
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+    <div id="menu">
+        <button id="alertButton">Pause</button>
+        <button id="vida"><p>Vida 🍃</p></button>
+        <button id="velocidade"><p>Vel 🍃</p></button>
+    </div>
+
+    <div id="statusGame">
+        <div>
+            <div>
+                <img src="assets/folha.png" alt="Folha">
+                <p>Folhas: <span id="pontos">0</span></p>
+            </div>
+            <div>
+                <img src="assets/formiga.png" alt="Formiga">
+                <p>Pontos de vida: <span id="vidaValue">20</span></p>
+            </div>
+            <div>
+                <img src="assets/run.png" alt="Velocidade">
+                <p>Velocidade: <span id="velocidadeFormiga">0</span></p>
+            </div>
+            <div>
+                <img src="assets/inimigo.png" alt="VelocidadeInimigos">
+                <p>Vel. adicionada: <span id="velocidadeInimigos">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts do CreateJS -->
+    <script src="https://code.createjs.com/1.0.0/easeljs.min.js"></script>
+    <!-- <script src="https://code.createjs.com/1.0.0/tweenjs.min.js"></script> -->
+    <script src="https://code.createjs.com/1.0.0/soundjs.min.js"></script>
+    <script src="https://code.createjs.com/1.0.0/preloadjs.min.js"></script>
+
+    <!-- Scripts do jogo -->
+    <script src="Game.js" defer></script>
+    <script src="/settings/main.js" defer></script>
+    <script src="/model/Formiga.js" defer></script>
+    <script src="/model/Folha.js" defer></script>
+    <script src="/model/Formigueiro.js" defer></script>
+    <script src="/model/Inimigo.js" defer></script>
+
+    <script>
+        document.getElementById('alertButton')?.addEventListener('click', function() {
+            alert('Jogo Pausado, clique em OK para continuar!');
+        });
+    </script>
+</body>
+</html>

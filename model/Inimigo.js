@@ -26,7 +26,6 @@ class Inimigo {
             return;
         }
 
-        // Escolhe a folha mais próxima, se houver folhas disponíveis
         let folhaMaisProxima = null;
         let menorDistancia = Infinity;
 
@@ -50,13 +49,9 @@ class Inimigo {
         const dx = this.sprite.x - formigueiro.posX;
         const dy = this.sprite.y - formigueiro.posY;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        const colidiu = dist <= formigueiro.radius;
+        const colidiu = dist <= formigueiro.radius + 12;
 
-        if (colidiu) {
-            this.colidindoComFormigueiro = true;
-        } else {
-            this.colidindoComFormigueiro = false;
-        }
+        this.colidindoComFormigueiro = colidiu;
     }
 
     definirMovimentacao(folha, formiga, formigueiro) {
@@ -71,80 +66,73 @@ class Inimigo {
             distFolha = Math.sqrt(difFolhaX * difFolhaX + difFolhaY * difFolhaY);
         }
 
-        if (this.colidindoComFormigueiro) {
+         if (this.colidindoComFormigueiro) {
             this.rondarFormigueiro(formigueiro);
         } else if (distFormiga < 300) {
             this.calcularDirecaoMovimentoDirecionadoAFormiga(formiga);
-        } else if (folha && distFolha < 400) {
-            this.calcularDirecaoMovimentoDirecionadoAFolha(folha);
+        } else if (folha && distFolha < 400 ) {
+            if (distFolha < 20) {
+            }else{
+                this.calcularDirecaoMovimentoDirecionadoAFolha(folha);
+            }
         } else {
             this.calcularDirecaoMovimentoAleatorio();
         }
     }
 
     rondarFormigueiro(formigueiro) {
-        const raio = formigueiro.radius + 15; // Raio da órbita
-        const velocidadeAngular = 0.06 + (Math.random() * 0.04); // Velocidade de rotação (radianos por frame)
+        const raio = formigueiro.radius + 50;
+        const velocidadeAngular = 0.06 + (Math.random() * 0.04);
 
-        // Incrementa o ângulo para criar o movimento circular
         this.anguloAtual += velocidadeAngular;
 
-        // Calcula a nova posição com base no ângulo
         this.sprite.x = formigueiro.posX + Math.cos(this.anguloAtual) * raio;
         this.sprite.y = formigueiro.posY + Math.sin(this.anguloAtual) * raio;
 
-        // Libera a colisão após completar o movimento
         this.colidindoComFormigueiro = false;
     }
 
     calcularDirecaoMovimentoAleatorio() {
-        // Definindo uma taxa para o inimigo mudar sua direção
-        const intervaloMudancaDirecao = 50; // A cada 50 frames o inimigo mudará sua direção
         if (Math.random() < 0.05) {
-            this.direcaoAleatoria += (Math.random() - 0.5) * 0.2; // Pequena mudança na direção
-        }else if (Math.random() > 0.05) {
-            this.direcaoAleatoria += (Math.random() - 0.5) * 0.2; // Pequena mudança na direção
+            this.direcaoAleatoria += (Math.random() - 0.5) * 0.2;
         }
-    
-        // Movimento suave, com curvaturas
+
         const dx = Math.cos(this.direcaoAleatoria);
         const dy = Math.sin(this.direcaoAleatoria);
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        this.movimentar(dx, dy, dist, (this.velocidade * 0.1));
+        this.movimentar(dx, dy, dist, this.velocidade * 0.1);
 
-        // Garantir que o inimigo fique dentro dos limites da tela (se necessário)
         const canvasWidth = this.stage.canvas.width;
         const canvasHeight = this.stage.canvas.height;
-        
+
         if (this.sprite.x < 0) this.sprite.x = 0;
         if (this.sprite.x > canvasWidth) this.sprite.x = canvasWidth;
         if (this.sprite.y < 0) this.sprite.y = 0;
         if (this.sprite.y > canvasHeight) this.sprite.y = canvasHeight;
-
     }
-    
 
     calcularDirecaoMovimentoDirecionadoAFormiga(formiga) {
         const dx = formiga.sprite.x - this.sprite.x;
         const dy = formiga.sprite.y - this.sprite.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        const velocidade = this.velocidade * 1;
-        this.movimentar(dx, dy, dist, velocidade);
+        this.movimentar(dx, dy, dist, this.velocidade);
     }
 
     calcularDirecaoMovimentoDirecionadoAFolha(folha) {
         const dx = folha.sprite.x - this.sprite.x;
         const dy = folha.sprite.y - this.sprite.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        const velocidade = this.velocidade * 0.5;
-        this.movimentar(dx, dy, dist, velocidade);
+        this.movimentar(dx, dy, dist, this.velocidade * 0.5);
     }
 
     movimentar(dx, dy, dist, velocidade) {
         if (dist > 0) {
             this.sprite.x += (dx / dist) * velocidade;
             this.sprite.y += (dy / dist) * velocidade;
+
+            // Ajusta o scaleX com base na direção horizontal
+            this.sprite.scaleX = dx > 0 ? -1 : 1;
         }
     }
 }
