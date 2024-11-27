@@ -44,19 +44,19 @@ Use os pontos obtidos para adquirir as seguintes melhorias:
 
 1. **Defesa da Formiga**
    - Aumenta a resistência a ataques inimigos.
-   - Custo: **1 ponto**.
+   - Custo: **1 ponto + 1 vezes de compra**.
 
 2. **Velocidade da Formiga**
    - Melhora a velocidade de movimentação da formiga.
-   - Custo: **1 ponto**.
+   - Custo: **1 ponto + 1 vezes de compra**.
 
 3. **Vida da Formiga**
    - Recupera ou aumenta a vida máxima da formiga.
-   - Custo: **1 ponto**.
+   - Custo: **1 ponto + 1 vezes de compra**.
 
 4. **Expansão do Formigueiro**
    - Aumenta o raio do formigueiro, facilitando a entrega de folhas.
-   - Custo: **2 pontos**.
+   - Custo: **1 pontos + 1 vezes de compra**.
 
 ---
 
@@ -67,7 +67,6 @@ Use os pontos obtidos para adquirir as seguintes melhorias:
 
 ### Derrota
 - A formiga perde todas as vidas.
-- O formigueiro é destruído pelos inimigos.
 
 ---
 
